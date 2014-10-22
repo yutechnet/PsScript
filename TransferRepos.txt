@@ -1,10 +1,16 @@
+Method #1: Method #1: use built-in transfer repo capability in github, detailed in this link 
+https://help.github.com/articles/transferring-a-repository/
+more seamless and carries over additional info such as webhooks
+
+Method #2: clone source first and then push to destination
+
 Pre-requisite:
 1. create empty source repo and initial wiki page
 2. clone access to source repo
 3. write access to destination repo (can be done by adding source account as contributor to destination account)
 4. Run script like below (put into a .cmd file)
 
-@echo off
+@echo off
 REM Transfer GitHub repos
 
 :: Create new repository
@@ -46,7 +52,3 @@ popd
 echo .
 echo .
 
-
-Final note: github has an official page about transfer pages, seems to be more complete transfer with webhooks, services, and deploy keys
-
-https://help.github.com/articles/transferring-a-repository/
