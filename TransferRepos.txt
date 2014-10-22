@@ -1,0 +1,52 @@
+Pre-requisite:
+1. create empty source repo and initial wiki page
+2. clone access to source repo
+3. write access to destination repo (can be done by adding source account as contributor to destination account)
+4. Run script like below (put into a .cmd file)
+
+@echo off
+REM Transfer GitHub repos
+
+:: Create new repository
+:: Enter name and description
+:: Select Private repository
+:: Uncheck - Initialize this repository with a README
+:: None: Add .gitignore
+:: Click wikis
+:: Click `
+:: Click wikis to create the wiki
+:: Click on Bridgepoint
+:: Click on Teams
+:: Add the new repo to the team
+
+rem replace string inside [[xx]]
+set SOURCE=git@github.com:[[SourceAccount]]
+set TARGET=git@github.bridgepoint.local:[[DestinationAccount]]
+
+rem 1
+:: Common
+set REPO_NAME=Common
+if exist %REPO_NAME% rmdir /s /q %REPO_NAME%
+if exist %REPO_NAME%.wiki rmdir /s /q %REPO_NAME%.wiki
+git clone %SOURCE%/%REPO_NAME%.git %REPO_NAME%
+if %ERRORLEVEL% GEQ 1 goto ERROR
+echo .
+pushd %REPO_NAME%
+git push --mirror %TARGET%/%REPO_NAME%.git
+if %ERRORLEVEL% GEQ 1 goto ERROR
+popd
+echo .
+git clone %SOURCE%/%REPO_NAME%.wiki.git %REPO_NAME%.wiki
+if %ERRORLEVEL% GEQ 1 goto ERROR
+echo .
+pushd %REPO_NAME%.wiki
+git push --mirror %TARGET%/%REPO_NAME%.wiki.git
+if %ERRORLEVEL% GEQ 1 goto ERROR
+popd
+echo .
+echo .
+
+
+Final note: github has an official page about transfer pages, seems to be more complete transfer with webhooks, services, and deploy keys
+
+https://help.github.com/articles/transferring-a-repository/
