@@ -38,7 +38,7 @@ foreach ($service in $ServiceRepos) {
 	 	} 
 	 }
  	if (!$found) {
- 		$git = "git@github.com:BridgepointEducationProducts/"+$service + ".git"
+ 		$git = "git@github.com:[[Your github name goes in here...]]/"+$service + ".git"
  		git clone $git
  	}
 }
